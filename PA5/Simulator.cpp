@@ -50,7 +50,7 @@ void runSimulation(int simulationTime)
 		
 
 			normalLane.enqueue(newCustomer); // adding the customer to the normal lane
-			cout << "NormalLaneCustomer number: " << newCustomer.getCustomerNumber() // gets the customer number as a object
+			cout << "Normal Lane Customer number: " << newCustomer.getCustomerNumber() // gets the customer number as a object
 				// so i can modify the item instead of a copy. 
 				<< " has arrived at the normal lane at: " << elapsedTime << " minutes" << endl;
 
@@ -65,9 +65,9 @@ void runSimulation(int simulationTime)
 			if (expressCustomer.getServiceTime() + expressCustomer.getTotalTime())
 			{
 				expressCustomer = expressLane.dequeue(); // removing the customer from the express lane
-				cout << "express lane custoemr number: " << expressCustomer.getCustomerNumber()
+				cout << "express lane customer number: " << expressCustomer.getCustomerNumber()
 					<< " has left the express lane at: " << elapsedTime << " minutes" << endl;
-				delete leavingCustomer; // deleting the customer from the heap
+				//delete leavingCustome; // deleting the customer from the heap
 			}
 		}
 
@@ -78,12 +78,25 @@ void runSimulation(int simulationTime)
 			{
 				normalCustomer = normalLane.dequeue(); // removing the customer from the normal lane
 				cout << "normal lane customer number: " << normalCustomer.getCustomerNumber()
-					<< " has left the normal lane at: " << elapsedTime << " minutes" << endl;
-				delete leavingCustomer; // deleting the customer from the heap
+					<< " has left the normal lane at: " << elapsedTime <<	 " minutes" << endl;
+				//delete leavingCustomer; // deleting the customer from the heap
 
 			}
 		}
+		// PRINTING OUT THE LINES EVERY 10 MINUTES
+		if (elapsedTime % 10 == 0)
+		{
+			cout << "Express Queue Line at: " << elapsedTime << "Minutes: " << endl;
+			expressLane.printQueue(); 
+
+
+			cout << "Express Queue Line at: " << elapsedTime << "Minutes: " << endl; 
+			normalLane.printQueue(); 
+		} 
+
+
+		elapsedTime++; // incrementing the elapsed time
+
 	}
-	elapsedTime++; // incrementing the elapsed time
 
 }

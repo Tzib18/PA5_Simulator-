@@ -7,7 +7,6 @@ class Queue // this is going to be the queue itself i believe
 private:
     QueueNode* pHead, * pTail;
 
-	void printQueue(); // this will print data that
 
 public: // Member functions 
 
@@ -26,6 +25,7 @@ public: // Member functions
 	QueueNode* getPhead() { return pHead; }
 	QueueNode* getPtail() { return pTail;  }
 
+	void printQueue(); // this will print data that
 
 
 
