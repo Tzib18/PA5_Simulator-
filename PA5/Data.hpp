@@ -30,7 +30,7 @@ public: // Member functions
         totalTime(existingPerson.totalTime){}
 
     // deconstructor 
-    ~Data(); 
+    ~Data() {} //  just defined it in my header file 
 
     //getters
     int getCustomerNumber() {

@@ -23,8 +23,8 @@ public: // Member functions
 	void destroyQue(); 
 
 	// getters 
-	QueueNode* getPhead();
-	QueueNode* getPtail();
+	QueueNode* getPhead() { return pHead; }
+	QueueNode* getPtail() { return pTail;  }
 
 
 
