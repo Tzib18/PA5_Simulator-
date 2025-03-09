@@ -56,31 +56,34 @@ void runSimulation(int simulationTime)
 
 			newNormalArrival = elapsedTime + (rand() % 6 + 3); // getting the next arrival time for the normal lane
 		}
-
-		// making node of a customer leaving the store and setting it to null.
-		Data* leavingCustomer = nullptr; 
-
-		// if my express lane is not empty and the express queue service time is equal to the elapsed time
-		if (!expressLane.isEmpty() && expressLane.getPhead()->getData().getServiceTime() == elapsedTime)
-		{
-			Data expressCustomer = expressLane.dequeue(); // removing the customer from the express lane
-			cout << "ExpressLaneCustomer number: " << expressCustomer.getCustomerNumber()
-				<< " has left the express lane at: " << elapsedTime << " minutes" << endl;
-			leavingCustomer = new Data(expressCustomer); // making a node of the customer that left the store
-
-			delete leavingCustomer; // deleting the node of the customer that left the store
-		}
-		// if my express lane is not empty 
-		if (!expressLane.isEmpty())
-		{
-			// getting the total time for the customers service and arrival time
-			Data oldCustomer = expressLane.getPhead()->getData(); // this is wrong i need to pass it in by refrence not pointer 
-			int custTotalTime = oldCustomer.getTotalTime(); // getting the total time for the customers service and arrival time
-			oldCustomer.setTotalTime(custTotalTime);
-			// setting the total time for the customer 
-
-
-		}
 		
+		if(!expressLane.isEmpty())
+		{
+			// getting the first customer in the express lane
+			Data& expressCustomer = expressLane.getPhead()->getData();
+			
+			if (expressCustomer.getServiceTime() + expressCustomer.getTotalTime())
+			{
+				expressCustomer = expressLane.dequeue(); // removing the customer from the express lane
+				cout << "express lane custoemr number: " << expressCustomer.getCustomerNumber()
+					<< " has left the express lane at: " << elapsedTime << " minutes" << endl;
+				delete leavingCustomer; // deleting the customer from the heap
+			}
+		}
+
+		if (!normalLane.isEmpty())
+		{
+			Data& normalCustomer = normalLane.getPhead()->getData(); // getting the first customer in the normal lane
+			if (normalCustomer.getServiceTime() + normalCustomer.getTotalTime())
+			{
+				normalCustomer = normalLane.dequeue(); // removing the customer from the normal lane
+				cout << "normal lane customer number: " << normalCustomer.getCustomerNumber()
+					<< " has left the normal lane at: " << elapsedTime << " minutes" << endl;
+				delete leavingCustomer; // deleting the customer from the heap
+
+			}
+		}
 	}
+	elapsedTime++; // incrementing the elapsed time
+
 }
